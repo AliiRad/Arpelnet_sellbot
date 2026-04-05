@@ -641,7 +641,8 @@ if($data=="inviteFriends"){
     
         $stmt = $connection->prepare("SELECT * FROM `setting` WHERE `type` = 'INVITE_BANNER_AMOUNT'");
         $stmt->execute();
-        $inviteAmount = number_format($stmt->get_result()->fetch_assoc()['value']??0) . " تومان";
+        // $inviteAmount = number_format($stmt->get_result()->fetch_assoc()['value']??0) . " تومان";
+        $inviteAmount = "1gb";
         $stmt->close();
         
         $getBotInfo = json_decode(file_get_contents("http://api.telegram.org/bot" . $botToken . "/getMe"),true);
@@ -658,7 +659,7 @@ if($data=="inviteFriends"){
         }
         $msgId = $res->result->message_id;
         sendMessage($link); # TODO :  DEBUG - CHECK IT LATER
-        sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و با هر خرید $inviteAmount بدست بیار",json_encode(['inline_keyboard'=>[[['text'=>$buttonValues['back_to_main'],'callback_data'=>"mainMenu"]]]]),null,null,$msgId);
+        sendMessage("با لینک بالا دوستاتو به ربات دعوت کن و به ازای هر ۱۰گیگ خرید با لینک شما $inviteAmount هدیه بگیر",json_encode(['inline_keyboard'=>[[['text'=>$buttonValues['back_to_main'],'callback_data'=>"mainMenu"]]]]),null,null,$msgId);
     }
     else alert("این قسمت غیر فعال است");
 }
